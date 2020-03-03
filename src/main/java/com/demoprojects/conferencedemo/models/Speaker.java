@@ -1,11 +1,14 @@
 package com.demoprojects.conferencedemo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity(name="speakers")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class Speaker {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,15 +20,15 @@ public class Speaker {
     private String speaker_bio;
     @Lob
     @Type(type="org.hibernate.type.BinaryType")
-    private byte[] speaker_photo;
+    private byte[] speaker_pho;
     @ManyToMany(mappedBy = "speakers")
+    @JsonIgnore
     private List<Session> sessions;
-
     public Speaker() {
     }
 
-    public byte[] getSpeaker_photo() {
-        return speaker_photo;
+    public byte[] getspeaker_pho() {
+        return speaker_pho;
     }
 
     public List<Session> getSessions() {
@@ -84,7 +87,7 @@ public class Speaker {
         this.sessions = sessions;
     }
 
-    public void setSpeaker_photo(byte[] speaker_photo) {
-        this.speaker_photo = speaker_photo;
+    public void setspeaker_pho(byte[] speaker_pho) {
+        this.speaker_pho = speaker_pho;
     }
 }
